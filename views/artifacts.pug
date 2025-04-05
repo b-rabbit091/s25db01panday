@@ -1,0 +1,21 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to #{title}! Explore the fascinating world of artifacts.
+
+  //- Hardcoded search results
+  -
+    let results = [
+      { artifact_name: 'Ancient Vase', origin: 'Greece', age: 2500 },
+      { artifact_name: 'Samurai Sword', origin: 'Japan', age: 800 },
+      { artifact_name: 'Egyptian Amulet', origin: 'Egypt', age: 3000 }
+    ];
+
+  div.container-fluid
+    div.row
+      each item in results
+        div.col-sm-2
+          p Artifact Name: #{item.artifact_name}
+          p Origin: #{item.origin}
+          p Age: #{item.age} years

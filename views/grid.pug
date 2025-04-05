@@ -1,0 +1,31 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to #{title}! Use query parameters to customize the grid.
+  // Display the query values
+  p Query Rows: #{query.rows}
+  p Query Columns: #{query.cols}
+
+  //- Convert query parameters to numbers
+  -
+    let rows = Number(query.rows);
+    let cols = Number(query.cols);
+
+  //- Validate the input
+  if (!Number.isInteger(rows) || !Number.isInteger(cols))
+    p Error: Rows and columns must be integers.
+  else if (rows < 3 || rows > 13)
+    p Error: Rows must be between 3 and 13.
+  else if (cols < 3 || cols > 13)
+    p Error: Columns must be between 3 and 13.
+  else
+    table#outer
+      //- Outer loop for rows
+      - for (let i = 0; i < rows; i++) {
+        tr#middle
+          //- Inner loop for columns
+          - for (let j = 0; j < cols; j++) {
+            td= i - j
+          - }
+      - }

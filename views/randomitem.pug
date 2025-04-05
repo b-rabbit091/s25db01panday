@@ -1,0 +1,23 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to #{title}! Here are some random items from our collection.
+
+  //- Define an array of image names
+  -
+    let image_names = [
+      'artifact1.jfif',
+      'artifact2.jfif',
+      'artifact3.jfif',
+      'artifact4.jfif',
+      'artifact5.jfif'
+    ];
+
+  //- Loop to display 3 random images
+  - for (let i = 0; i < 3; i++) {
+    -
+      let randomIndex = Math.floor(Math.random() * image_names.length);
+      let imageName = image_names[randomIndex];
+    img(src=`/images/${imageName}`, alt=`Random Artifact: ${imageName}`, height="300", width="300")
+  - }
