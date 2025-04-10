@@ -1,0 +1,8 @@
+extends layout
+
+block content
+  h1= title
+  ul
+    each item in results
+      li 
+        | Costume Type: #{item.costume_type}, Size: #{item.size}, Cost: $#{item.cost}
