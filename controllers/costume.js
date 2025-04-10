@@ -15,14 +15,15 @@ exports.costume_list = async function(req, res) {
 
 // For a specific Costume
 exports.costume_detail = async function(req, res) {
+  console.log("detail" + req.params.id)
   try {
     const result = await Costume.findById(req.params.id);
     if (!result) {
       return res.status(404).send({ message: "Costume not found" });
     }
-    res.json(result);
+    res.send(result);
   } catch (err) {
-    res.status(500).send({ error: err.message });
+    res.status(500).send(`{ "error": document for id ${req.params.id} not found}`);
   }
 };
 
