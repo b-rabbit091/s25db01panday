@@ -45,11 +45,13 @@ exports.costume_create_post = async function(req, res) {
 
 // Handle Costume delete on DELETE
 exports.costume_delete = async function(req, res) {
+  console.log("delete " + req.params.id)
   try {
     const result = await Costume.findByIdAndDelete(req.params.id);
     if (!result) {
       return res.status(404).send({ message: "Costume not found" });
     }
+    console.log("Removed " + result)
     res.json({ message: "Costume deleted successfully", result });
   } catch (err) {
     res.status(500).send({ error: err.message });
@@ -94,3 +96,17 @@ res.send(`{"error": ${err}}`);
 }
 };
 
+
+// Handle a show one view with id specified by query
+exports.costume_view_one_Page = async function(req, res) {
+console.log("single view for id " + req.query.id)
+try{
+result = await Costume.findById( req.query.id)
+res.render('costumedetail',
+{ title: 'Costume Detail', toShow: result });
+}
+catch(err){
+res.status(500)
+res.send(`{'error': '${err}'}`);
+}
+};
