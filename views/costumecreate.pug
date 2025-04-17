@@ -1,18 +1,19 @@
 extends layout
 
 block content
-  h1= title
-  form(id='CostumeForm', action="/resource/costumes", method="POST")
-    div.form-group
-      label.costumeAttr(for='costume_type') Costume type
-      input#costume_type(type='text', name='costume_type')
-    div.form-group
-      label.costumeAttr(for='size') Costume size
-      input#size(type='text', name='size')
-    div.form-group
-      label.costumeAttr(for='cost') Costume cost
-      input#cost(type='number', name='cost')
-    input(type="submit")
+  h1.text-center.mt-4.mb-4= title
+  form(id='CostumeForm', action="/resource/costumes", method="POST", class="container p-4 border rounded shadow-sm")
+    div.form-group.mb-3
+      label.costumeAttr(for='costume_type', class="form-label") Costume type
+      input#costume_type(type='text', name='costume_type', class="form-control", placeholder="Enter costume type")
+    div.form-group.mb-3
+      label.costumeAttr(for='size', class="form-label") Costume size
+      input#size(type='text', name='size', class="form-control", placeholder="Enter costume size")
+    div.form-group.mb-3
+      label.costumeAttr(for='cost', class="form-label") Costume cost
+      input#cost(type='number', name='cost', class="form-control", placeholder="Enter costume cost")
+    div.text-center
+      input(type="submit", class="btn btn-primary mt-3", value="Create Costume")
 
   script.
     document.forms['CostumeForm'].addEventListener('submit', (event) => {
