@@ -133,16 +133,33 @@ exports.costume_update_Page = async function (req, res) {
   }
 };
 
+exports.secured = (req, res, next) => {
+  if (req.user){
+  return next();
+  }
+  res.redirect("/login");
+  }
 
-exports.costume_create_Page = function(req, res) {
-console.log("create view")
-try{
-res.render('costumecreate', { title: 'Costume Create'});
-}
-catch(err){
-res.status(500)
-res.send(`{'error': '${err}'}`);
-}
+exports.costume_create_Page = async function(req, res) {
+  try {
+    const costume = new Costume(req.body);
+    await costume.save();
+    res.redirect('/costumes');
+  } catch (err) {
+    console.error(err);
+    if (err.name === 'ValidationError') {
+      let messages = [];
+      for (field in err.errors) {
+        messages.push(err.errors[field].message);
+      }
+      res.status(400).render('costumecreate', {
+        title: 'Create Costume',
+        message: messages.join(', '),
+      });
+    } else {
+      res.status(500).send('An unexpected error occurred.');
+    }
+  }
 };
 
 // Handle building the view for updating a costume.

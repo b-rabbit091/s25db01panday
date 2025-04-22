@@ -2,20 +2,21 @@ extends layout
 
 block content
   h1= title
+  // Add a button to navigate to the create page
+  a(href="/costumes/create", class="btn btn-success mb-3") Create New Costume
   - let items = results
   div(class="container-fluid")
     div(class="row")
-      each item in items
-        - let destination = `dispatch("/costumes/update?id=${item._id}")`
-        div(class="row-sm-2 m-1")
-          | Item #{item.costume_type} (#{item.size}) is #{item.cost}
-          button.btn(class="btn-primary ml-1", onclick=destination) Update
-    ul
-      each item in results
-        li 
-          | Costume Type: #{item.costume_type}, Size: #{item.size}, Cost: $#{item.cost}
-
-  script.
-    function dispatch(path) {
-      window.location.href = path;
-    }
+      if items && items.length > 0
+        each item in items
+          - let updateDestination = `/costumes/update?id=${item._id}`
+          - let detailDestination = `/costumes/detail?id=${item._id}`
+          - let deleteDestination = `/costumes/delete?id=${item._id}`
+          div(class="row-sm-2 m-1")
+            | Item #{item.costume_type} (#{item.size}) is #{item.cost}
+            button.btn(class="btn-primary ml-1", onclick=`window.location.href='${updateDestination}'`) Update
+            button.btn(class="btn-info ml-1", onclick=`window.location.href='${detailDestination}'`) Details
+            button.btn(class="btn-danger ml-1", onclick=`window.location.href='${deleteDestination}'`) Delete
+      else
+        div.text-center.mt-3
+          p No costumes found.
