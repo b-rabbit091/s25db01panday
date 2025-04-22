@@ -3,10 +3,17 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}! Enjoy exploring our website along with LAB Assignment 11.
-  button(type="button", class="btn btn-secondary", onclick="faster()") Press Me!
 
   div#faster Add in extra
-
+  if (!user)
+    a(href="/login") Login
+    br
+    a(href="/register") Register
+  if (user)
+    p You are currently logged in as #{user.username}
+    a(href="/costumes") Take me to costumes
+    br
+    a(href="/logout") Logout
   script.
     let value = 1;
     let amt = 2;
